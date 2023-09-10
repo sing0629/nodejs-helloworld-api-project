@@ -11,7 +11,6 @@ app.get('/', (req, res) => {
    res.send('Welcome to Nodejs API Project')
  })
 
-
  app.get('/hello', (req, res) => {
    res.send('Hello World!!')
  })
