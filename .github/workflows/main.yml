@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: "Create env file"
+        run: |
+          ls
+          pwd
+          echo "test" > .env.development
+
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -36,6 +42,8 @@ jobs:
         id: increment-git-tag
         #-v [major, minor, patch]
         run: |
+          ls
+          pwd
           bash ./build/git_update.sh -v patch
 
       - name: Build, Tag, and Push the Image to Amazon ECR
@@ -45,5 +53,7 @@ jobs:
           ECR_REPOSITORY: nodejs-helloworld-api-project
           IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
         run: |
+          ls
+          pwd
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
