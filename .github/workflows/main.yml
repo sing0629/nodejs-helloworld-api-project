@@ -10,14 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: "Create env file"
-        run: |
-          ls -la
-          pwd
-          echo "test" > .env.development
-          ls -la
-          pwd
-
       - name: Checkout code
         uses: actions/checkout@v2
 
@@ -55,6 +47,7 @@ jobs:
           ECR_REPOSITORY: nodejs-helloworld-api-project
           IMAGE_TAG: ${{ steps.increment-git-tag.outputs.git-tag }}
         run: |
+          echo "test" > .env.development
           ls -la
           pwd
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
